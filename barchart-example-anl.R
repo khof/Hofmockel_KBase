@@ -6,7 +6,7 @@ cc$L1N <- c (entry = "normed", level = "level1")
 cc$L2N <- c (entry = "normed", level = "level2")
 
 d <- as.data.frame (t (cc$L1N))
-r <- reshape (d, vary = list (names (d)), dir = "long", ids = rownames (d), times = names(d))
+r <- stats::reshape (d, vary = list (names (d)), dir = "long", ids = rownames (d), times = names(d))
 names (r) <- c ("function", "count", "sample")
 rownames (r) <- NULL
 r <- r[c (3,1,2)]

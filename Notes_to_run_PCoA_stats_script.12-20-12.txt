@@ -104,9 +104,9 @@ cd /mnt/try_dir
 
 pwd
 
-# now you can run trh program
+# now you can run the program
 
-class.count_data.singletons_removed.normed.NAMES.12-13-12.txt --groups_list july_oct.groups --num_perm 1000 --dist_method euclidean --cleanup 2>error.log &
+plot_pco_with_stats.9-18-12.pl class.count_data.singletons_removed.normed.NAMES.12-13-12.txt --groups_list july_oct.groups --num_perm 1000 --dist_method euclidean --cleanup 2>error.log &
 
 # If you want to be more adventurous, you can run it without the "--cleanup" flag -- all of the permutation files will be 
 # preserved.  You'll find them in directories in the main output directory, one directory for each of the four types of files 

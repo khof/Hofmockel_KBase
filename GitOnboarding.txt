@@ -1,0 +1,38 @@
+GITHUB
+
+Install git on laptop
+Git clone git@github.com:khof/Hofmockel_KBase.git
+# Use SSH not the “Git Read-Only” 
+#go to git hub pate , geti read only compy access & paste
+press enter
+
+how to upload ssh key to git hub for mac:
+put it on my instance (profile ssh key) http://drupal.org/node/1070130
+
+cp barchart.r ../../HOfockel_Kbase
+mv (rename)
+mv barchar.r barchant-xampla.anl
+
+git status
+
+git add  barchart file
+
+git status #status of current working directory
+
+git commit –am “add barchart file” #in quotes is title”
+	git commit –am #this means add and message at the same time
+git commit –m “message here”  #this is for when editing and pushing – changing files that have already been added
+
+git push #write this first
+git push copy the name of the git
+
+edit file
+
+emacs name of file (emacs is text editor)
+
+git status
+shows modified
+git add
+git commit
+git push
+git push with name

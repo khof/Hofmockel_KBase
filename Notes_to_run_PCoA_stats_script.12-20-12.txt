@@ -1,0 +1,121 @@
+# Through the remainder of the this file a line that starts with a "#" is a comment
+lines with no "#" like this one are either code you can copy and paste, or an example 
+of a file format
+#
+# These are simple instructions to use function for deriving permutation based statistics of
+# PCoA based visualizations.  Note that the the fidelity estimate is assessed from calculated
+# distances; it is not a direct assessment of PCoA output, but rather of the same data used to
+# generate it.
+# The current script name is plot_pco_with_stats.9-18-12.pl
+# You can view the usage for the script by using it without input arguments,
+# like this
+
+plot_pco_with_stats.9-18-12.pl
+
+# for most analyses it is likley that you will only need to specify ##### input arguments that 
+# provide the following information
+# 	  Description						Argument	Typical value(if applicable)
+#     - the input data file					--data_file	class.count_data.singletons_removed.normed.NAMES.12-13-12.txt
+#     - the input file that contains groupings of the samples	--groups_list	july_oct.groups
+#     - the number of permutations to perform 	       	       	--num_perm	1000 or 10000
+#     - the distance method (or metric)				--dist_method   can select from among the distance metrics list in the usage
+#     - a flag to clean up temporary files			--cleanup
+
+# The data file needs to be tab delimited 
+# - with the first field empty - each column(except the first) is a metagenome, 
+# - each row (except the first) represents a class (taxon or function) 
+# - the first row contains the column headers (note that the first field is empty) -- you will use these again in the groups file 
+# - the first column contains the row headers (note that the first field is empty)
+# an exampe would look something like this:
+
+  Sample1  Sample2    Sample3
+tax1	   1	      2	3
+tax2	   1	      2	4
+tax3	   2	      3	3
+
+# The data file should not contain blank lines
+
+# The groups list file has a slightly different format. Each line contains a comma separated list
+# of samples that you want to have in a group.
+# you can specify any groupings that you want -- multiple groupings can contain the same samples
+# samples are indicated by the names used for them in the header of the data file, as an example
+
+Sample1,Sample2
+Sample2,Sample3
+Sample1,Sample2,Sample3
+
+# Will create three groupings.
+# For each group, the tool will calculate an average for all all unique inter- and intra- group pairwise distances.
+# For the example above, you would receive within group distances for 3 groups, and the 3 unique pairings of the three
+# groups (row1::row2, row1::row3, row2::row3)
+
+# To run a typical analysis, you would enter something like the following
+
+plot_pco_with_stats.9-18-12.pl --data_file class.count_data.singletons_removed.normed.NAMES.12-13-12.txt --groups_list july_oct.groups --num_perm 1000 --dist_method euclidean --cleanup 2>error.log &
+
+# This will run the script; the "2>error.log" is a nice way of redirecting any errors that the program returns to a file 
+# instead of just printing them ephemerally to the screen
+# the "&" returns the command prompt (you may have to hit enter
+# as the script runs, it will print a few status indictors to the screen.  
+# The amount of time it takes to run will depend mainly on the number of permutations -- on the VM 1000 take about 2 minutes,
+# 10,000 takes 5-10 minutes.
+
+# The tool produces 4 types of output files:
+# *.DIST   	      # This file contains the distance matrix produced by the analysus
+# *.DIST.AVG_DIST     # This file contains average distances for all inter- and intra- group pairings of samples
+# *.PCoA	      # contains the PCoA output - I think the format is obvious, let me know if it's not
+# *.P_VALUES_SUMMARY  # This file contains a summary of all calculated distances and their associated p-values
+
+# The distance matrix, average distances, and PCoA are calculated for the original data
+# Then the specified number of permuted data sets are generated from the the original
+# The distance matrix, average distances, and a PCoA are generated for each of the permutations
+# As currently implemented, the method determines the p values in the following way
+# A given inter or intra group distance is calculated from the original data file.
+# The same distance is calculated for all permutations of the data.
+# The p value for the distance is determined as:
+#
+# (number_of_permutations_with_distance <= real_distance)/number_of_permutations 
+#
+# Essentially, we're saying that distance is signficant if randomized data is not able to 
+# produce distances that are the same or smaller
+
+# I placed example input/output in the /mnt/ehfi.method.example directory
+
+# Note the when the program runs, it creates and output directory
+plot_pco_with_stats.class.count_data.singletons_removed.normed.NAMES.12-13-12.txt.euclidean.RESULTS
+
+# This contains the four output files described above
+
+# If you want to reproduce the analysis, I would try this
+# First, make a new directory to try
+
+mkdir /mnt/try_dir
+
+# Then copy the input files from the example into it
+
+cp /mnt/ehfi.method.example/class.count_data.singletons_removed.normed.NAMES.12-13-12.txt /mnt/try_dir/
+cp /mnt/ehfi.method.example/july_oct.groups /mnt/try_dir/
+
+# Then move to that directory (by default, the tool expects the input files to be in the directory (or path) that your are)
+
+cd /mnt/try_dir
+
+# you can always chekc the see what your path is this way
+
+pwd
+
+# now you can run the program
+
+plot_pco_with_stats.9-18-12.pl class.count_data.singletons_removed.normed.NAMES.12-13-12.txt --groups_list july_oct.groups --num_perm 1000 --dist_method euclidean --cleanup 2>error.log &
+
+# If you want to be more adventurous, you can run it without the "--cleanup" flag -- all of the permutation files will be 
+# preserved.  You'll find them in directories in the main output directory, one directory for each of the four types of files 
+# that the analysis produces.
+
+# Those are the basics, give it a try and let me know how it works/ if there are questions
+
+# One additional note - I have another script that drives this analysis procedure in an automated way -- 
+# It produces an additional output that allows comparison of entire analyses, let me know if this is something
+# you may want to try as well.
+
+# Cheers - Kevin  

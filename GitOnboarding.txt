@@ -31,6 +31,6 @@ git pull at beginning of session
 git status
 shows modified
 git add
-git commit -m "message"
+git commit -am "message"
 git push
 git push with name

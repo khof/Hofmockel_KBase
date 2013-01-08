@@ -1,0 +1,12 @@
+"CC12-Micro-July2012"="red",
+"CC21-Micro-July2012"="red",
+"CC35-Micro-July2012"="red",
+"CC43-Micro-July2012"="red",
+"P13-Micro-July2012"="blue",
+"P24-Micro-July2012"="blue",
+"P31-Micro-July2012"="blue",
+"P46-Micro-July2012"="blue",
+"PF15-Micro-July2012"="green",
+"PF23-Micro-July2012"="green",
+"PF32-Micro-July2012"="green",
+"PF41-Micro-July2012"="green"

@@ -1,0 +1,27 @@
+
+# <codecell>
+
+f=open('groups.list.txt', 'r')
+d={'CC':[],'P':[],'PF':[]}
+for line in f:
+    line=line.rstrip().split('=') #get rid of enter
+    id=line[0][1:-1]
+    prefix = id[0:2]
+    if prefix != 'CC' and prefix != 'PF':
+        d['P'].append(id)
+        #print prefix, 'you found a funny P'
+    else:
+        d[prefix].append(id)
+output_file = open('groups.list.new.txt', 'w')
+for key in d.keys(): #d. is dictionary syntax; d.values;d.items d.tab to see
+    #print key, d[key]
+    for n, i in enumerate(d[key]):
+        if n== len(d[key])-1:
+            output_file.write('%s' % i)
+        else:
+            output_file.write('%s,' % i) # i matches as %s, and write it as a string
+        output_file.write('\n')
+
+# <codecell>
+
+

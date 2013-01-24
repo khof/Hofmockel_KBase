@@ -180,12 +180,12 @@ data.metagenome<-c("PF23-WS-July2012"="4509407.3",
 "PF15-SM-July2012"="4509396.3")
 
 #make your collection
-community.2<-collection(data.2, count = c (entry = "count", annot = "organism", source = "m5rna", level = "phylum"))
+community.2<-collection(data.2, count = c (entry = "count", annot = "organism", source = "m5rna", level = "class"))
 
 # remove singletons
 community.singletons_removed <- remove_singletons(as.matrix(community.2$count))
 
-# normalize, standardize, and scale
+# normalize, standardize, and scale (not for wgs data)
 community.singletons_removed.normed <-norm_center_scale(community.singletons_removed)
 
 #now we will take the data and transpose it to make a dataframe where rows are samples and columns are species and abundances (species are the taxonomic level you chose in your collection)
@@ -193,7 +193,7 @@ d<-community.singletons_removed.normed
 dt<-t(d)
 
 #write this data file into a csv that you can manipulate in excel quickly and easily.  Substitute whatever filename you would like in for 'filename'.  It will save to your main directory for your computer.
-write.csv(dt,"filename.csv")
+write.csv(dt,"class_alldata.csv")
 #now you can take that csv and enter in all treatment data that you may need to discern aggregate size classes, sampling date, or to use metadata
 
 #now you need to bring your data back into R; in this case the data was put into a dataframe called org.data.  The file.choose() function allows you to search your computer for the file you want.  It may be worth putting the full file path here instead.

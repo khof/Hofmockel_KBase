@@ -1,4 +1,4 @@
-GITHUB
+gitGITHUB
 
 Install git on laptop
 Git clone git@github.com:khof/Hofmockel_KBase.git

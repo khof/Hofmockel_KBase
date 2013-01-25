@@ -133,5 +133,5 @@ analysis_2.kw_stat <-sigtest(organized_subset,c(rep(1,4),rep(2,4)), "t-test-un-p
 write.csv(cbind(my_subset$count,analysis_2.kw_stat$stat),"ttestLMmicro.csv")
 
 # create a data opject that has the data used in the statistical analysis as the stat output
-
+##
 
